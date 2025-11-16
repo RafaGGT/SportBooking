@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportBookin - Gestión de Canchas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Estilos movidos a archivo externo -->
+  <link href="estilo/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <img src="img/logo.png" alt="Logo" width="40" height="40" class="me-2">
+        <span class="text-info">Sport</span>Bookin
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#caracteristicas">Características</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="panelAdministrador.html">Panel de Administrador</a></li>
+          <li class="nav-item"><a class="nav-link" href="panelUsuario.html">Panel de Usuario</a></li>
+          <li class="nav-item"><a class="nav-link" href="registro.html">Registrarse</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- SECCIÓN PRINCIPAL -->
+  <section id="inicio" class="hero">
+    <!-- video como fondo en todas las vistas -->
+    <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="img/gifloop.mp4" type="video/mp4">
+    </video>
+
+    <div class="container hero-content">
+      <h1 class="display-4 fw-bold mb-3">Bienvenido a <span class="text-info">Sport</span>Bookin</h1>
+      <p class="lead mb-4">Gestiona tus canchas, reservas y horarios de manera rápida, moderna y eficiente.</p>
+      <a href="registro.html" class="btn btn-primary btn-lg">Unete aca</a>
+    </div>
+  </section>
+
+  <!-- CARRUSEL DE DEPORTES -->
+  <section id="deportes" class="py-5 bg-dark">
+    <div class="container text-center">
+      <h2 class="fw-bold mb-4 text-white">Deportes disponibles</h2>
+
+      <div id="carouselDeportes" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner rounded-4 shadow-lg">
+
+          <div class="carousel-item active">
+            <img src="img/futbol.jpg" class="d-block w-100" alt="Fútbol">
+            <div class="carousel-caption text-black fs-4 fw-bold d-none d-md-block">
+              <h2>Fútbol</h2>
+              <p>Disfruta partidos con tus amigos en nuestras canchas de pasto sintético.</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="img/tenis.jpg" class="d-block w-100" alt="Tenis">
+            <div class="carousel-caption text-black fs-4 fw-bold d-none d-md-block">
+              <h2>Tenis</h2>
+              <p>Reserva tu cancha para un partido competitivo o un entrenamiento.</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="img/basquet.jpg" class="d-block w-100" alt="Básquetbol">
+            <div class="carousel-caption fs-4 fw-bold d-none d-md-block">
+              <h2>Básquetbol</h2>
+              <p>Juega con tu equipo en nuestras modernas canchas techadas.</p>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="img/padel.jpg" class="d-block w-100" alt="Pádel">
+            <div class="carousel-caption text-black fs-4 fw-bold d-none d-md-block">
+              <h2>Pádel</h2>
+              <p>Reserva fácilmente tu turno y disfruta de este deporte en auge.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controles -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselDeportes" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselDeportes" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+
+        <!-- Indicadores -->
+        <div class="carousel-indicators mt-3">
+          <button type="button" data-bs-target="#carouselDeportes" data-bs-slide-to="0" class="active"
+            aria-current="true"></button>
+          <button type="button" data-bs-target="#carouselDeportes" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselDeportes" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#carouselDeportes" data-bs-slide-to="3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE CARACTERÍSTICAS -->
+  <section id="caracteristicas" class="py-5 bg-light text-dark">
+    <div class="container text-center">
+      <h2 class="mb-4 fw-bold">Características principales</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Reservas Online</h5>
+              <p class="card-text">Permite a tus clientes reservar canchas desde cualquier dispositivo en segundos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Gestión de Horarios</h5>
+              <p class="card-text">Organiza la disponibilidad de tus canchas y evita solapamientos de horarios.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Reportes y Control</h5>
+              <p class="card-text">Consulta estadísticas y controla tus ingresos con reportes automáticos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SECCIÓN DE CONTACTO -->
+  <section id="contacto" class="py-5">
+    <div class="container text-center">
+      <h2 class="fw-bold mb-4">Contáctanos</h2>
+      <p>¿Tienes dudas o deseas más información? Escríbenos a:</p>
+      <p class="fs-5"><strong>contacto@sportbookin.com</strong></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-center py-3">
+    <div class="container">
+      <p class="mb-2">&copy; 2025 SportBookin. Todos los derechos reservados.</p>
+
+      <div class="social-icons" role="navigation" aria-label="Redes sociales">
+        <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 6.08 4.512 11.12 10.406 11.88v-8.4H7.523v-3.48h2.883V9.36c0-2.854 1.707-4.44 4.324-4.44 1.253 0 2.564.225 2.564.225v2.82h-1.444c-1.423 0-1.865.885-1.865 1.79v2.16h3.177l-.508 3.48h-2.669v8.4C19.488 23.12 24 18.08 24 12 24 5.373 18.627 0 12 0z" />
+          </svg>
+
+        </a>
+
+        <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm5 5.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zM18 6.5a1 1 0 1 1-1-1 1 1 0 0 1 1 1z" />
+          </svg>
+        </a>
+
+        <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M22 5.92c-.69.31-1.43.52-2.21.62a3.84 3.84 0 0 0 1.68-2.12 7.7 7.7 0 0 1-2.44.94A3.84 3.84 0 0 0 12.6 8.5c0 .3.03.6.1.88A10.9 10.9 0 0 1 3.2 4.2a3.84 3.84 0 0 0 1.19 5.12 3.8 3.8 0 0 1-1.74-.48v.05c0 1.86 1.32 3.41 3.07 3.76-.32.09-.66.14-1 .14-.24 0-.48-.02-.71-.07.48 1.5 1.86 2.6 3.5 2.63A7.7 7.7 0 0 1 2 19.54 10.87 10.87 0 0 0 8.29 21c6.45 0 9.98-5.34 9.98-9.98v-.45A7.02 7.02 0 0 0 22 5.92z" />
+          </svg>
+        </a>
+
+        <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M23.5 6.2s-.2-1.6-.8-2.3c-.8-.9-1.7-.9-2.1-1C16.9 2.5 12 2.5 12 2.5h-.1s-4.9 0-8.5.4c-.4.1-1.3.1-2.1 1C.7 4.6.5 6.2.5 6.2S.2 8 .2 9.8v4.4c0 1.8.3 3.6.3 3.6s.2 1.6.8 2.3c.8.9 1.9.9 2.4 1 1.7.2 7 .4 7 .4s4.9 0 8.5-.4c.4-.1 1.3-.1 2.1-1 .6-.7.8-2.3.8-2.3s.3-1.8.3-3.6V9.8c0-1.8-.3-3.6-.3-3.6zM9.8 15.1V8.9l6 3.1-6 3.1z" />
+          </svg>
+        </a>
+
+        <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M4.98 3.5a2.5 2.5 0 1 0 .02 0zM3 8.98h4v12H3zM9 8.98h3.84v1.63h.05c.54-1 1.86-2.06 3.83-2.06 4.1 0 4.86 2.7 4.86 6.21v7.22h-4v-6.4c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.38v6.52H9z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
