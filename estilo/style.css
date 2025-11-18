@@ -150,3 +150,59 @@ body {
         height: 36px;
     }
 }
+
+/* Ajustes responsivos para panel de usuario */
+@media (max-width: 991.98px) {
+
+    /* el sidebar fijo roba espacio en pantallas pequeñas: hacerlo estático */
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding-top: 0;
+        border-right: none;
+    }
+
+    /* el contenido debe ocupar todo el ancho */
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    /* tarjetas y formularios con padding más ajustado */
+    .card {
+        padding: 1rem;
+    }
+
+    /* tablas scrollables en móvil */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    /* reducir tamaño de texto ligeramente si hace falta */
+    .table {
+        font-size: 0.95rem;
+    }
+
+    /* botones de acción a full width en pantallas muy pequeñas */
+    .card .btn {
+        width: 100%;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 575.98px) {
+    .hero-content {
+        padding: 3rem 0;
+    }
+
+    .social-link {
+        width: 36px;
+        height: 36px;
+    }
+
+    .card .btn {
+        font-size: 0.9rem;
+        padding: .5rem .75rem;
+    }
+}
