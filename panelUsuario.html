@@ -48,7 +48,7 @@
     </div>
   </nav>
   <!-- Contenido -->
-  <div class="container-fluid content p-4">
+  <div class=" p-4">
     <section id="perfil">
       <h2 class="fw-bold mb-4">Mi Perfil</h2>
       <div class="card p-4">
@@ -72,7 +72,7 @@
       </div>
     </section>
 
-    <div class="container">
+    <div class="container-fluid">
       <hr class="my-5">
 
       <section id="reservas">
@@ -110,29 +110,38 @@
         <form class="row g-3">
           <div class="col-md-4">
             <label class="form-label">Deporte</label>
-            <select class="form-select">
-              <option>Seleccionar</option>
+            <select class="form-select" id="fDeporte">
+              <option value="">Seleccionar</option>
               <option>Fútbol</option>
               <option>Tenis</option>
               <option>Pádel</option>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="form-label">Fecha</label>
-            <input type="date" class="form-control">
+            <input type="date" id="fFecha" class="form-control">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label class="form-label">Hora</label>
-            <input type="time" class="form-control">
+            <input type="time" id="fHora" class="form-control">
           </div>
-          <div class="col-12">
-            <button class="btn btn-primary mt-3">Buscar</button>
+          <div class="col-md-2 d-flex align-items-end">
+            <button id="buscarBtn" type="button" class="btn btn-primary w-100">Buscar</button>
+          </div>
+
+          <!-- botón para usar GPS -->
+          <div class="col-12 mt-2">
+            <button id="useLocationBtn" type="button" class="btn btn-outline-info">
+              Usar mi ubicación (GPS) — mostrar canchas cercanas
+            </button>
+            <small id="locMsg" class="ms-2 text-muted"></small>
           </div>
         </form>
 
         <div class="mt-4">
           <h5>Canchas Disponibles</h5>
-          <div class="row g-3 mt-2">
+          <div id="canchasDisponibles" class="row g-3 mt-2">
+            <!-- ...existing cards... (se reemplazan dinámicamente por JS) -->
             <div class="col-md-4">
               <div class="card p-3 text-center">
                 <h5>Cancha Fútbol 5 - Complejo Central</h5>
@@ -216,6 +225,97 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- añadir script prototipo al final de body -->
+  <script>
+    // Prototipo: lista de canchas con coordenadas (lat, lon). Ajusta si quieres.
+    const CANCHAS = [
+      { id: 'c1', nombre: 'Cancha Fútbol 5 - Complejo Central', lat: -33.4500, lon: -70.6667 },
+      { id: 'c2', nombre: 'Cancha Pádel - SportZone', lat: -33.4550, lon: -70.6700 },
+      { id: 'c3', nombre: 'Cancha Tenis - Club Norte', lat: -33.4420, lon: -70.6500 },
+      { id: 'c4', nombre: 'Complejo Sur - Multicancha', lat: -33.4600, lon: -70.6800 },
+      { id: 'c5', nombre: 'Polideportivo Central', lat: -33.4480, lon: -70.6600 }
+    ];
+
+    // Haversine: distancia en km
+    function distanciaKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const toRad = v => v * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function formatDist(km) {
+      return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(2)} km`;
+    }
+
+    function crearCard(c) {
+      const fecha = document.getElementById('fFecha')?.value || '';
+      const hora = document.getElementById('fHora')?.value || '';
+      // pasar info a pago.html (prototipo)
+      const qs = new URLSearchParams({ cancha: c.nombre, fecha, hora }).toString();
+      return `
+    <div class="col-md-4">
+      <div class="card p-3 text-center">
+        <h5>${c.nombre}</h5>
+        <p class="mb-1">A ${formatDist(c.dist)}</p>
+        <p class="mb-2">${hora ? 'Disponible a las ' + hora : 'Selecciona hora'}</p>
+        <a href="pago.html?${qs}" class="btn btn-primary btn-sm" role="button" aria-label="Reservar ${c.nombre}">Reservar</a>
+      </div>
+    </div>
+  `;
+    }
+
+    function mostrarCanchas(list) {
+      const cont = document.getElementById('canchasDisponibles');
+      if (!cont) return;
+      if (list.length === 0) {
+        cont.innerHTML = `<div class="col-12"><p class="text-muted">No se encontraron canchas.</p></div>`;
+        return;
+      }
+      cont.innerHTML = list.map(c => crearCard(c)).join('');
+    }
+
+    // búsqueda por filtros simples (sin GPS)
+    document.getElementById('buscarBtn')?.addEventListener('click', () => {
+      const deporte = document.getElementById('fDeporte')?.value;
+      // por simplicidad en prototipo no filtramos por deporte, mostramos todas
+      const listado = CANCHAS.map(c => ({ ...c, dist: 0 })).slice(0, 6);
+      mostrarCanchas(listado);
+    });
+
+    // usar geolocalización
+    document.getElementById('useLocationBtn')?.addEventListener('click', () => {
+      const locMsg = document.getElementById('locMsg');
+      locMsg.textContent = 'Obteniendo ubicación…';
+      if (!navigator.geolocation) {
+        locMsg.textContent = 'Geolocalización no soportada por este navegador.';
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          // calcular distancias
+          const resultado = CANCHAS.map(c => {
+            const d = distanciaKm(lat, lon, c.lat, c.lon);
+            return { ...c, dist: d };
+          })
+            .sort((a, b) => a.dist - b.dist)
+            .slice(0, 6);
+          mostrarCanchas(resultado);
+          locMsg.textContent = `Mostrando ${resultado.length} canchas cerca de ti.`;
+        },
+        err => {
+          locMsg.textContent = err.code === 1 ? 'Permiso denegado para usar ubicación.' : 'Error al obtener ubicación.';
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+  </script>
 </body>
 
 </html>

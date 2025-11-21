@@ -54,7 +54,19 @@
             <!-- Resumen de reserva (rellenar dinámicamente si procede) -->
             <div class="mb-3">
                 <label class="form-label">Reserva</label>
-                <input type="text" class="form-control" value="Cancha 2 - Pádel | 2025-11-20 20:00" readonly>
+                <input id="resumenReserva" type="text" class="form-control" value="Cancha 2 - Pádel | 2025-11-20 20:00"
+                    readonly>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Fecha</label>
+                    <input id="fechaReserva" type="date" class="form-control" value="2025-11-20">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Hora</label>
+                    <input id="horaReserva" type="time" class="form-control" value="21:00">
+                </div>
             </div>
 
             <div class="row mb-3">
@@ -113,14 +125,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Pequeña lógica para ocultar/mostrar campos de tarjeta según método
+        // Pequeña lógica para ocultar/mostrar campos de tarjeta según método (protecciones por prototipo)
         const metodo = document.getElementById('metodoPago');
         const datosTarjeta = document.getElementById('datosTarjeta');
-        metodo.addEventListener('change', () => {
-            datosTarjeta.style.display = metodo.value === 'tarjeta' ? 'block' : 'none';
-        });
-        // estado inicial
-        datosTarjeta.style.display = 'none';
+        if (metodo && datosTarjeta) {
+            metodo.addEventListener('change', () => {
+                datosTarjeta.style.display = metodo.value === 'tarjeta' ? 'block' : 'none';
+            });
+            datosTarjeta.style.display = 'none';
+        }
+
+        // Actualiza el resumen al cambiar fecha/hora (solo prototipo)
+        const resumen = document.getElementById('resumenReserva');
+        const fechaInput = document.getElementById('fechaReserva');
+        const horaInput = document.getElementById('horaReserva');
+        function actualizarResumen() {
+            if (!resumen) return;
+            const canchaParte = resumen.value.split('|')[0].trim(); // conserva la parte de la cancha
+            const fecha = fechaInput?.value || '';
+            const hora = horaInput?.value || '';
+            const fechaMostrar = fecha ? fecha : 'sin fecha';
+            const horaMostrar = hora ? hora : 'sin hora';
+            resumen.value = `${canchaParte} | ${fechaMostrar} ${horaMostrar}`;
+        }
+        fechaInput?.addEventListener('change', actualizarResumen);
+        horaInput?.addEventListener('change', actualizarResumen);
+        actualizarResumen();
     </script>
 </body>
 
